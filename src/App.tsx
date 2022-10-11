@@ -5,6 +5,7 @@ import { IonReactRouter } from '@ionic/react-router';
 
 import { SplashScreen } from '@capacitor/splash-screen';
 
+import { SessionProvider } from './core/session';
 import LoginPage from './login/LoginPage';
 import TeaPage from './tea/TeaPage';
 
@@ -38,19 +39,21 @@ const App: React.FC = () => {
 
   return (
     <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          <Route exact path="/login">
-            <LoginPage />
-          </Route>
-          <Route exact path="/tea">
-            <TeaPage />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/tea" />
-          </Route>
-        </IonRouterOutlet>
-      </IonReactRouter>
+      <SessionProvider>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Route exact path="/login">
+              <LoginPage />
+            </Route>
+            <Route exact path="/tea">
+              <TeaPage />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/tea" />
+            </Route>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </SessionProvider>
     </IonApp>
   );
 };
