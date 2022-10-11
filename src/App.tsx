@@ -5,7 +5,7 @@ import { IonReactRouter } from '@ionic/react-router';
 
 import { SplashScreen } from '@capacitor/splash-screen';
 
-import { SessionProvider } from './core/session';
+import { PrivateRoute, SessionProvider } from './core/session';
 import LoginPage from './login/LoginPage';
 import TeaPage from './tea/TeaPage';
 
@@ -46,7 +46,9 @@ const App: React.FC = () => {
               <LoginPage />
             </Route>
             <Route exact path="/tea">
-              <TeaPage />
+              <PrivateRoute>
+                <TeaPage />
+              </PrivateRoute>
             </Route>
             <Route exact path="/">
               <Redirect to="/tea" />
