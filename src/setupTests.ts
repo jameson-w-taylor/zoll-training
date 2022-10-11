@@ -4,6 +4,12 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
 
+import { mockIonicReact } from '@ionic/react-test-utils';
+import { setupIonicReact } from '@ionic/react';
+
+setupIonicReact();
+mockIonicReact();
+
 // Mock matchmedia
 window.matchMedia =
   window.matchMedia ||
