@@ -40,11 +40,17 @@ export const useSession = () => {
     }
   };
 
+  const invalidate = async (): Promise<void> => {
+    await Preferences.remove({ key: 'auth-token' });
+    dispatch({ type: 'CLEAR_SESSION' });
+  };
+
   return {
     session: state.session,
     loading: state.loading,
     error: state.error,
     login,
     logout,
+    invalidate,
   };
 };

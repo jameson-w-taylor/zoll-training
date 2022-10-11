@@ -5,7 +5,7 @@ import { IonReactRouter } from '@ionic/react-router';
 
 import { SplashScreen } from '@capacitor/splash-screen';
 
-import { PrivateRoute, SessionProvider } from './core/session';
+import { AuthInterceptorProvider, PrivateRoute, SessionProvider } from './core/session';
 import LoginPage from './login/LoginPage';
 import TeaPage from './tea/TeaPage';
 
@@ -29,6 +29,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 import './theme/global.css';
+import { TeaProvider } from './tea/TeaProvider';
 
 setupIonicReact();
 
@@ -40,21 +41,25 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <SessionProvider>
-        <IonReactRouter>
-          <IonRouterOutlet>
-            <Route exact path="/login">
-              <LoginPage />
-            </Route>
-            <Route exact path="/tea">
-              <PrivateRoute>
-                <TeaPage />
-              </PrivateRoute>
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/tea" />
-            </Route>
-          </IonRouterOutlet>
-        </IonReactRouter>
+        <AuthInterceptorProvider>
+          <TeaProvider>
+            <IonReactRouter>
+              <IonRouterOutlet>
+                <Route exact path="/login">
+                  <LoginPage />
+                </Route>
+                <Route exact path="/tea">
+                  <PrivateRoute>
+                    <TeaPage />
+                  </PrivateRoute>
+                </Route>
+                <Route exact path="/">
+                  <Redirect to="/tea" />
+                </Route>
+              </IonRouterOutlet>
+            </IonReactRouter>
+          </TeaProvider>
+        </AuthInterceptorProvider>
       </SessionProvider>
     </IonApp>
   );
