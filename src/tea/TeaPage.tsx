@@ -16,12 +16,11 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import './TeaPage.css';
-
-import { Tea } from '../shared/models';
-import { useSession } from '../core/session';
-import { useHistory } from 'react-router';
 import { logOutOutline } from 'ionicons/icons';
+import { useHistory } from 'react-router';
+import { useSession } from '../core/session';
+import { Tea } from '../shared/models';
+import './TeaPage.css';
 import { useTea } from './TeaProvider';
 
 export const listToMatrix = (teas: Tea[]): Tea[][] => {
@@ -66,7 +65,7 @@ const TeaPage: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent fullscreen className="main-content">
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Tea</IonTitle>

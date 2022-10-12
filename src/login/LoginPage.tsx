@@ -12,11 +12,11 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { useForm, Controller } from 'react-hook-form';
 import { logInOutline } from 'ionicons/icons';
-import { useSession } from '../core/session';
-import { useHistory } from 'react-router';
 import { useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { useHistory } from 'react-router';
+import { useSession } from '../core/session';
 
 type LoginInputs = {
   email: string;
@@ -26,6 +26,9 @@ type LoginInputs = {
 const LoginPage: React.FC = () => {
   const { login, session, error } = useSession();
   const history = useHistory();
+
+  useEffect(() => session && history.replace('/tabs'), [history, session]);
+
   const {
     handleSubmit,
     control,
@@ -34,10 +37,8 @@ const LoginPage: React.FC = () => {
 
   const handleLogin = async (data: LoginInputs) => {
     await login(data.email, data.password);
-    session && history.replace('/tabs');
+    history.replace('/tea');
   };
-
-  useEffect(() => session && history.replace('/tabs'), [history, session]);
 
   return (
     <IonPage>
@@ -46,7 +47,7 @@ const LoginPage: React.FC = () => {
           <IonTitle>Login</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent className="main-content">
         <form>
           <IonList>
             <IonItem>
@@ -88,6 +89,7 @@ const LoginPage: React.FC = () => {
               />
             </IonItem>
           </IonList>
+
           <div className="error-message" data-testid="errors">
             <div>{errors.email?.type === 'required' && 'E-Mail Address is required'}</div>
             <div>{errors.email?.type === 'pattern' && errors.email.message}</div>
@@ -97,12 +99,12 @@ const LoginPage: React.FC = () => {
         </form>
       </IonContent>
       <IonFooter>
-        <IonToolbar>
+        <IonToolbar color="secondary">
           <IonButton
             expand="full"
             disabled={!isDirty || !isValid}
-            onClick={handleSubmit((data) => handleLogin(data))}
             data-testid="submit-button"
+            onClick={handleSubmit((data) => handleLogin(data))}
           >
             Sign In
             <IonIcon slot="end" icon={logInOutline} />
