@@ -1,7 +1,11 @@
 {
   "name": "tea-taster",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
+  "author": {
+    "name": "Ionic Solutions Architect Team",
+    "email": "support@ionic.io"
+  },
   "dependencies": {
     "@capacitor/android": "4.3.0",
     "@capacitor/app": "4.0.1",
