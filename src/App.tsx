@@ -8,6 +8,7 @@ import { SplashScreen } from '@capacitor/splash-screen';
 import { AuthInterceptorProvider, PrivateRoute, SessionProvider } from './core/session';
 import LoginPage from './login/LoginPage';
 import TeaPage from './tea/TeaPage';
+import TeaDetailsPage from './tea/details/TeaDetailsPage';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -51,6 +52,11 @@ const App: React.FC = () => {
                 <Route exact path="/tea">
                   <PrivateRoute>
                     <TeaPage />
+                  </PrivateRoute>
+                </Route>
+                <Route path="/tea/details/:id">
+                  <PrivateRoute>
+                    <TeaDetailsPage />
                   </PrivateRoute>
                 </Route>
                 <Route exact path="/">
