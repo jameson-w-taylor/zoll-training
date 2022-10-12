@@ -51,7 +51,7 @@ const TeaPage: React.FC = () => {
   };
 
   const navToDetailsPage = (id: number) => {
-    history.push(`/tea/details/${id}`);
+    history.push(`/tabs/tea/details/${id}`);
   };
 
   return (

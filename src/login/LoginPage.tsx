@@ -34,10 +34,10 @@ const LoginPage: React.FC = () => {
 
   const handleLogin = async (data: LoginInputs) => {
     await login(data.email, data.password);
-    session && history.replace('/tea');
+    session && history.replace('/tabs');
   };
 
-  useEffect(() => session && history.replace('/tea'), [history, session]);
+  useEffect(() => session && history.replace('/tabs'), [history, session]);
 
   return (
     <IonPage>

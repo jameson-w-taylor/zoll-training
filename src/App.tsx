@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact, isPlatform } from '@ionic/react';
+import { isPlatform, IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-
 import { SplashScreen } from '@capacitor/splash-screen';
-
 import { AuthInterceptorProvider, PrivateRoute, SessionProvider } from './core/session';
+import { TeaProvider } from './tea/TeaProvider';
+import Tabs from './Tabs';
 import LoginPage from './login/LoginPage';
-import TeaPage from './tea/TeaPage';
-import TeaDetailsPage from './tea/details/TeaDetailsPage';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -28,43 +26,36 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-
 import './theme/global.css';
-import { TeaProvider } from './tea/TeaProvider';
 
 setupIonicReact();
 
 const App: React.FC = () => {
   useEffect(() => {
-    if (isPlatform('capacitor')) SplashScreen.hide();
+    isPlatform('capacitor') && SplashScreen.hide();
   }, []);
 
   return (
     <IonApp>
       <SessionProvider>
         <AuthInterceptorProvider>
-          <TeaProvider>
-            <IonReactRouter>
-              <IonRouterOutlet>
-                <Route exact path="/login">
-                  <LoginPage />
-                </Route>
-                <Route exact path="/tea">
-                  <PrivateRoute>
-                    <TeaPage />
-                  </PrivateRoute>
-                </Route>
-                <Route path="/tea/details/:id">
-                  <PrivateRoute>
-                    <TeaDetailsPage />
-                  </PrivateRoute>
-                </Route>
-                <Route exact path="/">
-                  <Redirect to="/tea" />
-                </Route>
-              </IonRouterOutlet>
-            </IonReactRouter>
-          </TeaProvider>
+          <IonReactRouter>
+            <IonRouterOutlet>
+              <Route exact path="/login">
+                <LoginPage />
+              </Route>
+              <Route path="/tabs">
+                <PrivateRoute>
+                  <TeaProvider>
+                    <Tabs />
+                  </TeaProvider>
+                </PrivateRoute>
+              </Route>
+              <Route exact path="/">
+                <Redirect to="/login" />
+              </Route>
+            </IonRouterOutlet>
+          </IonReactRouter>
         </AuthInterceptorProvider>
       </SessionProvider>
     </IonApp>
